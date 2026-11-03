@@ -1,3 +1,3 @@
 # SKT
 SKT
-https://lunxuhappiness.streamlit.app/
+https://lunxuhappiness.streamlit.app
