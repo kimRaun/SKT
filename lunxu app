@@ -1119,3 +1119,7 @@ if sidebar == "맞춤형 조언":
     "trace": "원본 'game' 8번; 원문에 好 글자는 나오지 않음"
   }
 ]
+
+streamlit>=1.35,<2
+requests>=2.31,<3
+
