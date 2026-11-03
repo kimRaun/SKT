@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f6f1">
+<meta name="description" content="하루 한 구절, 논어를 읽고 기록하는 모바일 학습 웹사이트">
+<title>논어한입 | 하루 한 구절</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&family=Noto+Serif+KR:wght@400;500;600;700&display=swap');
+:root{--bg:#f8f7f3;--paper:#fff;--ink:#232e2b;--soft:#66716b;--border:#dedfd8;--accent:#36594a;--accent-light:#eaf0eb;--sand:#eeeae0;--serif:"Noto Serif KR","Batang",serif;--sans:"Noto Sans KR","Malgun Gothic",sans-serif;--scale:1}
+[data-theme="dark"]{--bg:#202724;--paper:#28312c;--ink:#f1f1eb;--soft:#bac5bc;--border:#455047;--accent:#afcfb7;--accent-light:#33453a;--sand:#333d36}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:calc(15px * var(--scale));line-height:1.8;word-break:keep-all}button,input,select,textarea{font:inherit}button{cursor:pointer;color:inherit}a{color:inherit;text-decoration:none}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--accent);outline-offset:3px}a:hover,button:hover{transition:.15s}
+.container{max-width:1070px;padding:0 26px;margin:auto}
+.skip{position:absolute;left:-999px;top:10px;background:var(--paper);padding:8px}.skip:focus{left:12px;z-index:100}
+.site-head{background:var(--bg);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:20}
+.head-row{height:72px;display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:11px;white-space:nowrap;font-weight:700;letter-spacing:-.06em;font-size:20px}
+.brand-mark{display:grid;place-items:center;width:35px;height:35px;background:var(--accent);color:var(--paper);font-family:serif;font-size:20px}
+.head-links{display:flex;align-items:center;gap:23px;font-size:13px;color:var(--soft)}.head-links a:hover{color:var(--accent)}
+.head-tools{display:flex;align-items:center;gap:3px}.tool{border:0;background:none;padding:5px 7px;color:var(--soft);font-size:13px}
+.hero{display:grid;grid-template-columns:1.05fr .95fr;align-items:center;min-height:352px;gap:20px;padding-top:38px;padding-bottom:33px;border-bottom:1px solid var(--border)}
+.overline{font-size:12px;font-weight:700;letter-spacing:.09em;color:var(--accent)}
+h1,h2,h3,p{margin-top:0}h1{font-family:var(--serif);font-size:clamp(34px,5vw,53px);font-weight:600;line-height:1.43;letter-spacing:-.065em;margin:16px 0 12px}
+.hero-desc{color:var(--soft);font-size:14px;max-width:380px}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.btn{border:1px solid var(--border);background:var(--paper);padding:10px 16px;border-radius:4px;font-size:13px;font-weight:600}.btn:hover{border-color:var(--accent)}.btn.main{background:var(--accent);border-color:var(--accent);color:var(--paper)}
+.hero-visual{min-height:294px;display:flex;align-items:center;justify-content:center}.hero-visual svg{width:100%;max-width:465px;height:auto}
+[data-theme=dark] .hero-visual{filter:brightness(.85)}
+.section{padding-top:51px;padding-bottom:48px;border-bottom:1px solid var(--border);scroll-margin-top:80px}
+.section-label{color:var(--accent);font-size:12px;letter-spacing:.08em;font-weight:700;margin-bottom:6px}
+.section-head{display:flex;justify-content:space-between;align-items:end;gap:14px;margin-bottom:24px}
+.section-head h2{font-family:var(--serif);font-size:26px;font-weight:600;letter-spacing:-.06em;margin:0}
+.description{font-size:13px;color:var(--soft);margin:5px 0 0}
+.tiny-link{border:0;border-bottom:1px solid var(--accent);background:none;color:var(--accent);padding:4px 0;white-space:nowrap;font-size:12px}
+.reading{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(255px,.55fr);gap:35px;align-items:start}
+.reading-main{background:var(--paper);border:1px solid var(--border);padding:30px 33px 26px}
+.entry-meta{color:var(--accent);font-size:12px;font-weight:700;letter-spacing:.02em;display:flex;gap:12px;align-items:center}
+.entry-original{font:500 23px/2.02 var(--serif);letter-spacing:.02em;margin:19px 0 22px}
+.entry-translation{font-size:14px;line-height:2;color:var(--ink);padding-top:17px;border-top:1px solid var(--border);margin-bottom:17px}
+.entry-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.small-btn{background:none;border:1px solid var(--border);font-size:12px;padding:5px 10px;border-radius:4px}.small-btn.saved{color:var(--accent);border-color:var(--accent)}.tag{font-size:11px;background:var(--accent-light);color:var(--accent);padding:3px 7px}
+.reading-side{padding:6px 0}.side-title{font-family:var(--serif);font-size:18px;font-weight:600;margin-bottom:18px}.side-line{border-top:1px solid var(--border);padding:15px 0;display:flex;align-items:baseline;justify-content:space-between;gap:15px}.side-line span{font-size:13px;color:var(--soft)}.side-line strong{font:500 23px var(--serif);color:var(--accent)}.side-note{font-size:12px;color:var(--soft);margin-top:17px}
+.history-layout{display:grid;grid-template-columns:minmax(0,.93fr) minmax(0,1.07fr);gap:30px}
+.history-pane{border-top:2px solid var(--accent);background:var(--paper);padding:18px 22px 12px;border-bottom:1px solid var(--border)}
+.history-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:12px}
+.history-tools strong{font-family:var(--serif);font-size:17px}.history-tools select{max-width:185px;min-width:0}
+.history-list{height:314px;overflow-y:auto;padding-right:5px}
+.history-row{width:100%;display:grid;grid-template-columns:75px 1fr auto;align-items:center;gap:12px;text-align:left;border:0;border-bottom:1px solid var(--border);padding:12px 4px;background:none}
+.history-row:hover,.history-row.active{background:var(--accent-light)}.history-row.active .history-date{color:var(--accent);font-weight:700}
+.history-date{color:var(--soft);font-size:12px}.history-ref{font-size:13px}.history-arrow{color:var(--soft);font-size:12px}
+.history-preview{min-width:0;padding:2px 0 0}.history-preview h3{font:600 20px var(--serif);margin:0 0 15px}.history-preview .entry-original{font-size:19px;line-height:2;margin:8px 0 16px}.history-preview .entry-translation{font-size:13px}
+.section-split{display:grid;grid-template-columns:1fr 1fr;gap:36px}
+.input-label{display:block;font-size:12px;color:var(--soft);margin-bottom:8px}
+textarea{width:100%;min-height:153px;padding:15px 16px;resize:vertical;background:var(--paper);border:1px solid var(--border);color:var(--ink);outline:none;font-size:13px;line-height:1.85}
+.learning-numbers{display:grid;grid-template-columns:repeat(3,1fr);margin:21px 0 18px}
+.learning-numbers div{border-right:1px solid var(--border);padding:0 15px}.learning-numbers div:first-child{padding-left:0}.learning-numbers div:last-child{border:0}
+.learning-numbers strong{display:block;font:600 24px var(--serif);color:var(--accent)}.learning-numbers span{font-size:11px;color:var(--soft)}
+.day-strip{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-top:18px}.day-cell{text-align:center;border-top:2px solid var(--border);padding:10px 2px 0;font-size:11px;color:var(--soft)}.day-cell.done{border-color:var(--accent);color:var(--accent);font-weight:700}
+.quiz-shell{display:grid;grid-template-columns:.7fr 1.3fr;gap:32px}.quiz-aside{padding-top:3px}.quiz-aside p{font-size:13px;color:var(--soft)}.quiz-aside .score{font-size:13px;color:var(--accent);margin-top:15px}
+.quiz-content{background:var(--paper);padding:26px 28px;border:1px solid var(--border)}.quiz-type{font-size:11px;color:var(--accent);font-weight:700}.quiz-content h3{font-size:17px;font-weight:600;margin:9px 0 14px}.quiz-source{font:500 18px/1.9 var(--serif);background:var(--bg);padding:14px 17px;margin-bottom:16px}
+.quiz-options{display:grid;gap:8px}.quiz-choice{width:100%;text-align:left;border:1px solid var(--border);background:var(--paper);padding:10px 13px;font-size:12px;line-height:1.7}.quiz-choice:hover{border-color:var(--accent)}.quiz-choice.correct{border-color:var(--accent);background:var(--accent-light)}.quiz-choice.wrong{border-color:#b87868;background:#f9efea}.quiz-result{font-size:12px;color:var(--accent);min-height:22px;margin-top:9px}.quiz-controls{display:flex;gap:7px;margin-top:9px}
+.browse-layout{display:grid;grid-template-columns:1fr 1fr;gap:38px}.browse-layout h3{font:600 18px var(--serif);margin-bottom:16px}.topic-list{display:flex;flex-wrap:wrap;gap:8px}
+.topic{border:1px solid var(--border);background:var(--paper);padding:8px 12px;font-size:12px}.topic:hover{color:var(--accent);border-color:var(--accent)}.topic span{color:var(--soft);margin-left:7px;font-size:10px}
+.book-list{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}.book-item{display:flex;justify-content:space-between;border:0;border-bottom:1px solid var(--border);background:none;padding:11px 0;font-size:13px}.book-item span{color:var(--soft);font-size:11px}
+.search-tools{display:grid;grid-template-columns:1.5fr 1fr 1fr auto;gap:9px;margin-top:3px}
+.field{border:1px solid var(--border);background:var(--paper);color:var(--ink);min-width:0;padding:10px 12px;border-radius:3px;font-size:13px}
+.results-head{display:flex;align-items:center;justify-content:space-between;margin:23px 0 8px}.results-head span{font-size:12px;color:var(--soft)}
+.results{display:grid;grid-template-columns:1fr 1fr;gap:0 23px}.result{padding:20px 0;border-bottom:1px solid var(--border);min-width:0}.result-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:9px}.result-head strong{font:600 15px var(--serif)}.result-original{font:500 15px/1.9 var(--serif);margin:4px 0 9px}.result-translation{font-size:12px;color:var(--soft);line-height:1.85;margin:0 0 10px}.result-actions{display:flex;gap:6px;flex-wrap:wrap}
+.empty{padding:25px 0;color:var(--soft);font-size:13px}
+footer{padding:32px 0 40px;font-size:12px;color:var(--soft);display:flex;justify-content:space-between;gap:14px}.mobile-nav{display:none}
+#toast{position:fixed;left:50%;bottom:25px;transform:translateX(-50%);padding:9px 17px;background:#263d33;color:#fff;font-size:12px;display:none;z-index:100;border-radius:3px}#toast.show{display:block}
+@media(max-width:850px){.head-links{gap:12px}.reading{grid-template-columns:1fr}.reading-side{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}.side-title{grid-column:1/-1;margin:0}.side-line{display:block}.history-layout,.section-split,.browse-layout{gap:22px}.quiz-shell{grid-template-columns:1fr}}
+@media(max-width:650px){.container{padding-left:18px;padding-right:18px}.site-head .head-row{height:60px}.head-links{display:none}.brand{font-size:19px}.hero{grid-template-columns:1fr;padding-top:31px;gap:10px}.hero-visual{min-height:0;max-height:195px;overflow:hidden}.hero-visual svg{max-width:350px}h1{font-size:35px}.section{padding-top:37px;padding-bottom:36px}.section-head h2{font-size:23px}.reading-main{padding:20px 19px}.entry-original{font-size:20px}.reading-side{gap:5px}.side-line strong{font-size:20px}.history-layout,.section-split,.browse-layout{grid-template-columns:1fr}.history-list{height:244px}.quiz-content{padding:19px}.search-tools{grid-template-columns:1fr 1fr}.search-tools input{grid-column:1/-1}.search-tools .btn{grid-column:1/-1}.results{grid-template-columns:1fr}.mobile-nav{display:flex;position:fixed;bottom:0;left:0;right:0;background:var(--paper);border-top:1px solid var(--border);justify-content:space-around;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:30}.mobile-nav a{text-align:center;color:var(--soft);font-size:11px;line-height:1.4}.mobile-nav a b{display:block;color:var(--accent);font-size:17px;font-weight:400}footer{padding-bottom:85px;display:block}.history-pane{padding:13px}.learning-numbers div{padding:0 9px}}
+</style>
+</head>
+<body>
+<a href="#main" class="skip">본문 바로가기</a>
+<header class="site-head"><div class="container head-row">
+<a class="brand" href="#main"><span class="brand-mark">論</span><span>논어한입</span></a>
+<nav class="head-links" aria-label="주요 메뉴"><a href="#today">오늘</a><a href="#history">지난 구절</a><a href="#learning">학습 기록</a><a href="#quiz">퀴즈</a><a href="#browse">탐색</a><a href="#search">전체 검색</a></nav>
+<div class="head-tools"><button class="tool" id="fontDown" aria-label="글씨 축소">A−</button><button class="tool" id="fontUp" aria-label="글씨 확대">A+</button><button class="tool" id="themeToggle" aria-label="테마 변경">☾</button></div>
+</div></header>
+<main id="main" class="container">
+<section class="hero" aria-label="소개">
+<div><div class="overline">하루 한 구절, 오래 남는 생각</div><h1>오늘도 한 줄,<br>논어를 읽습니다.</h1><p class="hero-desc">고전의 문장을 읽고, 마음에 남는 구절을 모아보세요. 매일 조금씩 이어지는 나만의 작은 독서 기록.</p><div class="hero-actions"><a href="#today" class="btn main">오늘의 논어 읽기</a><a href="#search" class="btn">구절 찾아보기</a><button id="randomBtn" class="btn">무작위 구절</button></div></div>
+<div class="hero-visual"><svg viewBox="0 0 480 300" role="img" aria-label="고서와 산, 소나무를 그린 한국화풍 삽화" xmlns="http://www.w3.org/2000/svg">
+<defs><linearGradient id="mount" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#9bb0a1"/><stop offset="1" stop-color="#e6e9e0"/></linearGradient><linearGradient id="page" x1="0" x2="1"><stop stop-color="#fdf9ee"/><stop offset="1" stop-color="#eee4cf"/></linearGradient></defs>
+<circle cx="337" cy="65" r="32" fill="#d8c7a3" opacity=".68"/>
+<path d="M0 208 Q55 127 102 169 Q141 138 172 93 Q194 68 219 111 Q258 172 305 147 Q353 96 402 157 Q439 135 480 183 L480 300 0 300Z" fill="url(#mount)" opacity=".72"/>
+<path d="M0 241 Q75 182 121 227 Q190 174 233 221 Q321 178 393 221 Q442 198 480 225 L480 300 0 300Z" fill="#b3c4b7" opacity=".55"/>
+<path d="M0 274 Q132 239 247 259 Q370 230 480 266 L480 300 0 300Z" fill="#edf0e8"/>
+<path d="M68 235 Q73 197 73 135 M73 154 Q56 140 36 131 M73 170 Q93 155 101 128" fill="none" stroke="#617967" stroke-width="5" stroke-linecap="round"/>
+<g fill="#718a74"><path d="M29 134 Q43 110 68 133 Q57 150 29 134Z"/><path d="M70 128 Q91 105 111 128 Q95 146 70 128Z"/><path d="M45 117 Q67 95 83 116 Q63 131 45 117Z"/><path d="M69 165 Q91 145 112 164 Q96 177 69 165Z"/></g>
+<ellipse cx="306" cy="272" rx="146" ry="12" fill="#6b7a66" opacity=".13"/>
+<path d="M172 207 Q230 188 305 209 L305 272 Q235 247 172 264Z" fill="url(#page)" stroke="#aa9a7c" stroke-width="1.7"/>
+<path d="M305 209 Q370 185 442 205 L442 264 Q373 246 305 272Z" fill="#f5eddc" stroke="#aa9a7c" stroke-width="1.7"/>
+<path d="M305 209 L305 272" stroke="#aa9a7c" stroke-width="2"/>
+<path d="M193 218 Q235 208 282 221 M193 231 Q235 220 282 233 M193 244 Q235 233 282 246 M328 220 Q371 208 421 217 M328 233 Q373 220 421 230 M328 246 Q373 234 421 242" fill="none" stroke="#c4b69e" stroke-width="1.3"/>
+<text x="351" y="211" font-size="14" font-family="serif" fill="#668074">論語</text>
+</svg></div>
+</section>
+<section id="today" class="section">
+<div class="section-label">01 · TODAY</div>
+<div class="section-head"><div><h2>오늘의 논어</h2><p class="description">오늘 날짜에 맞춰 한 구절을 소개합니다.</p></div><span class="description" id="todayDate"></span></div>
+<div class="reading"><article id="todayContent" class="reading-main"></article><aside class="reading-side"><h3 class="side-title">나의 독서 기록</h3><div class="side-line"><span>수록 구절</span><strong id="statVerses">0</strong></div><div class="side-line"><span>저장한 구절</span><strong id="statBookmarks">0</strong></div><div class="side-line"><span>연속 학습</span><strong><span id="statStreak">0</span>일</strong></div><p class="side-note">읽기와 메모는 현재 브라우저에 저장됩니다.</p></aside></div>
+</section>
+<section id="history" class="section">
+<div class="section-label">02 · ARCHIVE</div><div class="section-head"><div><h2>지난 구절 다시 읽기</h2><p class="description">날짜를 골라 그날의 문장을 살펴보세요.</p></div></div>
+<div class="history-layout">
+<div class="history-pane"><div class="history-tools"><strong>최근 30일</strong><select id="historyMonth" class="field" aria-label="기간 선택"><option value="all">모든 날짜</option></select></div><div id="historyList" class="history-list"></div></div>
+<article class="history-preview" id="selectedVerse" aria-live="polite"></article>
+</div></section>
+<section id="learning" class="section">
+<div class="section-label">03 · NOTES</div><div class="section-head"><div><h2>나의 학습 기록</h2><p class="description">읽은 날을 기록하고, 마음에 남은 생각을 남겨 보세요.</p></div></div>
+<div class="section-split">
+<div><button id="completeToday" class="btn main">오늘 읽기 완료</button><div class="learning-numbers"><div><strong id="recordStreak">0일</strong><span>연속 학습</span></div><div><strong id="recordTotal">0일</strong><span>총 학습일</span></div><div><strong id="recordBest">0일</strong><span>최고 연속</span></div></div><p class="description">최근 7일의 읽기 기록</p><div class="day-strip" id="studyCalendar"></div></div>
+<div><label for="studyMemo" class="input-label">나의 문장 노트</label><textarea id="studyMemo" placeholder="오늘 읽은 구절에서 떠오른 생각을 적어보세요."></textarea><div style="margin-top:9px"><button id="saveMemo" class="btn">메모 저장</button></div></div>
+</div></section>
+<section id="quiz" class="section">
+<div class="section-label">04 · PRACTICE</div><div class="section-head"><div><h2>논어 한입 퀴즈</h2><p class="description">배운 내용을 가볍게 확인해 보세요.</p></div></div>
+<div class="quiz-shell"><div class="quiz-aside"><p>원문과 번역을 읽어보고 네 가지 보기 중 알맞은 답을 골라 보세요.</p><div class="score" id="quizScore"></div><div class="quiz-controls"><button class="btn" id="nextQuiz">다음 문제</button><button class="btn" id="resetQuiz">기록 초기화</button></div></div><div class="quiz-content" id="quizCard"></div></div>
+</section>
+<section id="browse" class="section">
+<div class="section-label">05 · COLLECTION</div><div class="section-head"><div><h2>관심 있는 문장 찾기</h2><p class="description">주제별로 골라 읽거나, 논어의 편을 따라 살펴보세요.</p></div></div>
+<div class="browse-layout"><div><h3>주제별 읽기</h3><div id="themeCards" class="topic-list"></div></div><div><h3>편별 읽기</h3><div id="bookCards" class="book-list"></div></div></div>
+</section>
+<section id="search" class="section">
+<div class="section-label">06 · FIND</div><div class="section-head"><div><h2>논어 구절 검색</h2><p class="description">원문·번역·주제어로 문장을 찾아보세요.</p></div></div>
+<div class="search-tools"><input id="searchInput" class="field" placeholder="예: 배움, 孝, 군자" aria-label="검색어 입력" type="search"><select id="themeFilter" class="field" aria-label="주제 선택"><option value="">모든 주제</option></select><select id="bookFilter" class="field" aria-label="편 선택"><option value="">모든 편</option></select><button class="btn" id="resetBtn">초기화</button></div>
+<div class="results-head"><span id="resultSummary"></span><button class="tiny-link" id="bookmarkedOnly">☆ 저장한 구절만</button></div><div id="verseList" class="results"></div><div style="text-align:center;margin-top:22px"><button class="btn" id="moreResults" style="display:none">결과 더 보기</button></div>
+</section>
+</main>
+<footer class="container"><span>論語一口 · 논어한입</span><span>하루 한 구절, 천천히 읽는 고전</span></footer>
+<nav class="mobile-nav" aria-label="모바일 메뉴"><a href="#today"><b>書</b>오늘</a><a href="#history"><b>日</b>기록</a><a href="#quiz"><b>問</b>퀴즈</a><a href="#browse"><b>目</b>탐색</a><a href="#search"><b>尋</b>검색</a></nav>
+<div id="toast" role="status" aria-live="polite"></div>
+<script>
+const analectsData=[{"id": 1, "book": "學而", "verse": 1, "title": "學而 1", "original": "子曰 學而時習之 不亦說乎 有朋自遠方來 不亦樂乎 人不知而不慍 不亦君子乎", "translation": "배우고 때때로 익히면 기쁘지 않은가. 벗이 먼 곳에서 찾아오면 즐겁지 않은가. 남이 알아주지 않아도 성내지 않으면 군자가 아니겠는가.", "themes": ["배움", "친구·관계", "군자·수양"]}, {"id": 2, "book": "學而", "verse": 2, "title": "學而 2", "original": "有子曰 其爲人也孝弟而好犯上者 鮮矣 不好犯上而好作亂者 未之有也 君子務本 本立而道生 孝弟也者 其爲仁之本與", "translation": "효도하고 공손하면서 윗사람을 거스르기 좋아하는 사람은 드물다. 군자는 근본에 힘쓰니 근본이 서면 도가 생긴다.", "themes": ["효·가족", "인·배려", "군자·수양"]}, {"id": 3, "book": "學而", "verse": 3, "title": "學而 3", "original": "子曰 巧言令色 鮮矣仁", "translation": "그럴듯한 말과 꾸민 얼굴빛에는 인이 드물다.", "themes": ["인·배려", "신의·말"]}, {"id": 4, "book": "學而", "verse": 4, "title": "學而 4", "original": "曾子曰 吾日三省吾身 爲人謀而不忠乎 與朋友交而不信乎 傳不習乎", "translation": "나는 날마다 자신을 반성한다. 남을 위해 일하면서 충실했는가. 친구에게 믿음을 지켰는가. 배운 것을 익혔는가.", "themes": ["군자·수양", "친구·관계", "배움"]}, {"id": 5, "book": "學而", "verse": 5, "title": "學而 5", "original": "子曰 道千乘之國 敬事而信 節用而愛人 使民以時", "translation": "나라를 다스릴 때는 일을 공경하고 믿음을 지키며 비용을 절약하고 사람을 사랑해야 한다.", "themes": ["정치·리더십", "신의·말", "인·배려"]}, {"id": 6, "book": "學而", "verse": 6, "title": "學而 6", "original": "子曰 弟子入則孝 出則弟 謹而信 汎愛衆 而親仁 行有餘力 則以學文", "translation": "집에서는 효도하고 밖에서는 공손하며 믿음을 지키고 사람을 사랑한 뒤에 글을 배워야 한다.", "themes": ["효·가족", "신의·말", "인·배려", "배움"]}, {"id": 7, "book": "學而", "verse": 7, "title": "學而 7", "original": "子夏曰 賢賢易色 事父母能竭其力 事君能致其身 與朋友交言而有信 雖曰未學 吾必謂之學矣", "translation": "부모에게 힘을 다하고 친구에게 믿음을 지키면 비록 배우지 않았어도 배운 사람이라 할 수 있다.", "themes": ["효·가족", "친구·관계", "신의·말"]}, {"id": 8, "book": "學而", "verse": 8, "title": "學而 8", "original": "子曰 君子不重則不威 學則不固 主忠信 無友不如己者 過則勿憚改", "translation": "군자는 충성과 믿음을 중시하고 잘못이 있으면 고치기를 꺼리지 말아야 한다.", "themes": ["군자·수양", "배움", "실천·행동"]}, {"id": 9, "book": "學而", "verse": 9, "title": "學而 9", "original": "曾子曰 愼終追遠 民德歸厚矣", "translation": "상례를 신중히 하고 돌아가신 조상을 추모하면 백성의 덕이 두터워진다.", "themes": ["효·가족", "예절"]}, {"id": 10, "book": "學而", "verse": 10, "title": "學而 10", "original": "子禽問於子貢曰 夫子至於是邦也 必聞其政 求之與 抑與之與 子貢曰 夫子溫良恭儉讓以得之", "translation": "공자는 온화하고 선량하며 공손하고 검소하고 사양하는 태도로 정치에 관한 이야기를 들었다.", "themes": ["정치·리더십", "군자·수양", "예절"]}, {"id": 11, "book": "學而", "verse": 11, "title": "學而 11", "original": "子曰 父在 觀其志 父沒 觀其行 三年無改於父之道 可謂孝矣", "translation": "아버지가 살아 계실 때는 그 뜻을 보고 돌아가신 뒤에는 행동을 살펴야 한다.", "themes": ["효·가족", "군자·수양"]}, {"id": 12, "book": "學而", "verse": 12, "title": "學而 12", "original": "有子曰 禮之用 和爲貴 先王之道 斯爲美 知和而和 不以禮節之 亦不可行也", "translation": "예의 쓰임은 화합을 귀하게 여기는 데 있지만 화합만 알고 예로 절제하지 않으면 안 된다.", "themes": ["예절", "인·배려"]}, {"id": 13, "book": "學而", "verse": 13, "title": "學而 13", "original": "有子曰 信近於義 言可復也 恭近於禮 遠恥辱也", "translation": "믿음이 의에 가까우면 말을 실천할 수 있고 공손함이 예에 가까우면 치욕을 멀리할 수 있다.", "themes": ["신의·말", "예절"]}, {"id": 14, "book": "學而", "verse": 14, "title": "學而 14", "original": "子曰 君子食無求飽 居無求安 敏於事而愼於言 就有道而正焉 可謂好學也已", "translation": "군자는 먹고 사는 안락함만 구하지 않고 일에 민첩하며 말은 신중히 한다.", "themes": ["군자·수양", "배움", "신의·말"]}, {"id": 15, "book": "學而", "verse": 15, "title": "學而 15", "original": "子貢曰 貧而無諂 富而無驕 何如 子曰 可也 未若貧而樂 富而好禮者也", "translation": "가난해도 즐겁고 부유해도 예를 좋아하는 것이 더욱 좋다.", "themes": ["군자·수양", "예절", "즐거움"]}, {"id": 16, "book": "學而", "verse": 16, "title": "學而 16", "original": "子曰 不患人之不己知 患不知人也", "translation": "남이 나를 알아주지 않음을 걱정하지 말고 내가 남을 알지 못함을 걱정하라.", "themes": ["군자·수양", "친구·관계"]}, {"id": 17, "book": "爲政", "verse": 1, "title": "爲政 1", "original": "子曰 爲政以德 譬如北辰 居其所而衆星共之", "translation": "덕으로 정치하는 것은 북극성이 제자리에 있으면서 여러 별이 둘러싼 것과 같다.", "themes": ["정치·리더십", "군자·수양"]}, {"id": 18, "book": "爲政", "verse": 2, "title": "爲政 2", "original": "子曰 詩三百 一言以蔽之 曰思無邪", "translation": "시경 삼백 편을 한마디로 말하면 생각에 사특함이 없다는 것이다.", "themes": ["배움", "군자·수양"]}, {"id": 19, "book": "爲政", "verse": 3, "title": "爲政 3", "original": "子曰 道之以政 齊之以刑 民免而無恥 道之以德 齊之以禮 有恥且格", "translation": "법과 형벌만으로 다스리면 부끄러움을 모르지만 덕과 예로 다스리면 스스로 바르게 된다.", "themes": ["정치·리더십", "예절"]}, {"id": 20, "book": "爲政", "verse": 4, "title": "爲政 4", "original": "子曰 吾十有五而志于學 三十而立 四十而不惑 五十而知天命 六十而耳順 七十而從心所欲 不踰矩", "translation": "나는 열다섯에 학문에 뜻을 두고 서른에 자립하며 마흔에 미혹되지 않았고 일흔에는 법도를 넘지 않았다.", "themes": ["배움", "군자·수양", "실천·행동"]}, {"id": 21, "book": "爲政", "verse": 5, "title": "爲政 5", "original": "孟懿子問孝 子曰 無違", "translation": "맹의자가 효를 묻자 공자가 말했다. 어김이 없어야 한다.", "themes": ["효·가족"]}];
+const $=id=>document.getElementById(id);
+const PREFIX="lunyu_bite_";
+function getStored(k,initial){try{let x=localStorage.getItem(PREFIX+k);return x===null?initial:JSON.parse(x)}catch(e){return initial}}
+function putStored(k,x){try{localStorage.setItem(PREFIX+k,JSON.stringify(x))}catch(e){}}
+function escapeHTML(t){return String(t).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+let bookmarks=new Set(getStored("bookmarks",[]).map(String));
+let days=new Set(getStored("days",[]));
+let quizScore=getStored("quizscore",{total:0,correct:0});
+let selected=null,bookmarkedOnly=false,visible=8,currentQuiz=null,quizLocked=false;
+const koreanDate=(d=new Date())=>new Intl.DateTimeFormat("en-CA",{timeZone:"Asia/Seoul",year:"numeric",month:"2-digit",day:"2-digit"}).format(d);
+function daysAgo(n){return koreanDate(new Date(Date.now()-n*86400000))}
+function labelDate(key){const a=key.split("-");return `${Number(a[1])}월 ${Number(a[2])}일`}
+function dailyVerse(key){const offset=Math.floor(Date.parse(key+"T00:00:00Z")/86400000);return analectsData[((offset%analectsData.length)+analectsData.length)%analectsData.length]}
+function notify(txt){const el=$("toast");el.textContent=txt;el.classList.add("show");setTimeout(()=>el.classList.remove("show"),1800)}
+function tags(v){return v.themes.map(t=>`<span class="tag">${escapeHTML(t)}</span>`).join(" ")}
+function actions(v){let active=bookmarks.has(String(v.id));return `<div class="entry-actions"><button class="small-btn ${active?"saved":""}" data-save="${v.id}">${active?"★ 저장됨":"☆ 구절 저장"}</button><button class="small-btn" data-copy="${v.id}">복사</button>${tags(v)}</div>`}
+function mainVerse(v){return `<div class="entry-meta"><span>${escapeHTML(v.title)}</span></div><div class="entry-original">${escapeHTML(v.original)}</div><div class="entry-translation">${escapeHTML(v.translation)}</div>${actions(v)}`}
+function updateCounts(){const dates=Array.from(days).sort();let streak=0;for(let n=0;n<366;n++){if(days.has(daysAgo(n)))streak++;else if(n===0)continue;else break}
+let best=0,cur=0,prev=-99999;dates.forEach(k=>{let z=Date.parse(k+"T00:00:00Z")/86400000;cur=z===prev+1?cur+1:1;best=Math.max(best,cur);prev=z});
+$("statVerses").textContent=analectsData.length;$("statBookmarks").textContent=bookmarks.size;$("statStreak").textContent=streak;
+$("recordStreak").textContent=streak+"일";$("recordTotal").textContent=days.size+"일";$("recordBest").textContent=best+"일";
+$("studyCalendar").innerHTML=Array.from({length:7},(_,i)=>{const key=daysAgo(6-i);return `<div class="day-cell ${days.has(key)?"done":""}">${Number(key.slice(5,7))}/${Number(key.slice(8))}<br>${days.has(key)?"●":"—"}</div>`}).join("")}
+function renderToday(){let key=koreanDate(),v=dailyVerse(key);$("todayDate").textContent=labelDate(key);$("todayContent").innerHTML=mainVerse(v);if(!selected)showSelected(v,`오늘 · ${labelDate(key)}`)}
+function showSelected(v,label){selected=v;$("selectedVerse").innerHTML=`<div class="entry-meta">${escapeHTML(label)}</div><h3>${escapeHTML(v.title)}</h3><div class="entry-original">${escapeHTML(v.original)}</div><div class="entry-translation">${escapeHTML(v.translation)}</div>${actions(v)}`}
+function renderHistory(){let items=Array.from({length:30},(_,i)=>{let date=daysAgo(i);return{date,verse:dailyVerse(date)}});const sel=$("historyMonth");const keys=[...new Set(items.map(x=>x.date.slice(0,7)))];sel.innerHTML=`<option value="all">모든 날짜</option>`+keys.map(k=>`<option value="${k}">${k.replace("-","년 ")}월</option>`).join("");const draw=()=>{$("historyList").innerHTML=items.filter(x=>sel.value==="all"||x.date.startsWith(sel.value)).map(x=>`<button class="history-row ${selected&&selected.id===x.verse.id?"active":""}" data-date="${x.date}"><span class="history-date">${x.date.slice(5).replace("-",".")}</span><span class="history-ref">${escapeHTML(x.verse.title)}</span><span class="history-arrow">→</span></button>`).join("")};sel.addEventListener("change",draw);draw();$("historyList").addEventListener("click",e=>{const el=e.target.closest("[data-date]");if(!el)return;const k=el.dataset.date;showSelected(dailyVerse(k),`지난 구절 · ${labelDate(k)}`);draw()})}
+function renderBrowse(){let themes=[...new Set(analectsData.flatMap(v=>v.themes))];$("themeCards").innerHTML=themes.map(t=>`<button class="topic" data-theme="${escapeHTML(t)}">${escapeHTML(t)}<span>${analectsData.filter(v=>v.themes.includes(t)).length}</span></button>`).join("");let books=[...new Set(analectsData.map(v=>v.book))];$("bookCards").innerHTML=books.map(b=>`<button class="book-item" data-book="${escapeHTML(b)}">${escapeHTML(b)}<span>${analectsData.filter(v=>v.book===b).length}구절 →</span></button>`).join("");$("themeFilter").innerHTML=`<option value="">모든 주제</option>`+themes.map(t=>`<option value="${escapeHTML(t)}">${escapeHTML(t)}</option>`).join("");$("bookFilter").innerHTML=`<option value="">모든 편</option>`+books.map(b=>`<option value="${escapeHTML(b)}">${escapeHTML(b)}</option>`).join("")}
+function resultHTML(v){return `<article class="result"><div class="result-head"><strong>${escapeHTML(v.title)}</strong><span class="tag">${escapeHTML(v.themes[0]||"논어")}</span></div><p class="result-original">${escapeHTML(v.original)}</p><p class="result-translation">${escapeHTML(v.translation)}</p><div class="result-actions"><button class="small-btn ${bookmarks.has(String(v.id))?"saved":""}" data-save="${v.id}">${bookmarks.has(String(v.id))?"★ 저장됨":"☆ 저장"}</button><button class="small-btn" data-copy="${v.id}">복사</button></div></article>`}
+function filtered(){let query=$("searchInput").value.trim().toLowerCase(),theme=$("themeFilter").value,book=$("bookFilter").value;return analectsData.filter(v=>(!query||[v.title,v.original,v.translation,...v.themes].join(" ").toLowerCase().includes(query))&&(!theme||v.themes.includes(theme))&&(!book||v.book===book)&&(!bookmarkedOnly||bookmarks.has(String(v.id))))}
+function renderSearch(){const found=filtered();$("resultSummary").textContent=`${found.length}개의 구절`;$("verseList").innerHTML=found.length?found.slice(0,visible).map(resultHTML).join(""):`<div class="empty">검색 조건에 맞는 구절이 없습니다.</div>`;$("moreResults").style.display=found.length>visible?"inline-block":"none";$("bookmarkedOnly").textContent=bookmarkedOnly?"★ 전체 구절 보기":"☆ 저장한 구절만"}
+function copyText(v){const text=`${v.title}\n${v.original}\n${v.translation}`;if(navigator.clipboard&&window.isSecureContext){navigator.clipboard.writeText(text).then(()=>notify("구절을 복사했습니다.")).catch(()=>fallbackCopy(text))}else fallbackCopy(text)}
+function fallbackCopy(text){const el=document.createElement("textarea");el.value=text;el.style.position="fixed";el.style.opacity="0";document.body.append(el);el.select();try{document.execCommand("copy");notify("구절을 복사했습니다.")}catch(e){notify("복사가 지원되지 않습니다.")}el.remove()}
+function refreshVerseViews(){const v=selected;renderToday();if(v)showSelected(v,$("selectedVerse").querySelector(".entry-meta")?.textContent||"선택한 구절");renderSearch();updateCounts()}
+function saveVerse(id){let key=String(id);bookmarks.has(key)?bookmarks.delete(key):bookmarks.add(key);putStored("bookmarks",[...bookmarks]);refreshVerseViews();notify(bookmarks.has(key)?"구절을 저장했습니다.":"저장을 해제했습니다.")}
+function shuffled(xs){let a=[...xs];for(let i=a.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function newQuiz(){let v=analectsData[Math.floor(Math.random()*analectsData.length)];let wrong=shuffled(analectsData.filter(x=>x.id!==v.id)).slice(0,3);currentQuiz={id:v.id,correct:v.translation};quizLocked=false;let options=shuffled([v,...wrong]);$("quizCard").innerHTML=`<span class="quiz-type">원문 뜻 맞히기</span><h3>다음 구절의 뜻으로 알맞은 것은?</h3><div class="quiz-source">${escapeHTML(v.original)}</div><div class="quiz-options">${options.map(x=>`<button class="quiz-choice" data-answer="${x.id}">${escapeHTML(x.translation)}</button>`).join("")}</div><div id="quizResult" class="quiz-result" aria-live="polite">정답을 하나 선택해 보세요.</div>`;renderQuizScore()}
+function renderQuizScore(){$("quizScore").textContent=`${quizScore.total}문제 풀이 · ${quizScore.correct}문제 정답`}
+function checkQuiz(id){if(quizLocked)return;quizLocked=true;let ok=id===currentQuiz.id;quizScore.total++;if(ok)quizScore.correct++;putStored("quizscore",quizScore);$("quizCard").querySelectorAll("[data-answer]").forEach(b=>{if(+b.dataset.answer===currentQuiz.id)b.classList.add("correct");else if(+b.dataset.answer===id)b.classList.add("wrong");b.disabled=true});$("quizResult").textContent=ok?"정답입니다. 잘하셨어요!":"다시 읽어보세요. 정답은 초록색으로 표시했습니다.";renderQuizScore()}
+function init(){const t=getStored("theme","light");document.documentElement.dataset.theme=t;$("themeToggle").textContent=t==="dark"?"☼":"☾";const scale=getStored("scale",1);document.documentElement.style.setProperty("--scale",scale);
+$("studyMemo").value=getStored("memo","");renderToday();renderHistory();renderBrowse();renderSearch();updateCounts();newQuiz();
+document.addEventListener("click",e=>{let save=e.target.closest("[data-save]"),copy=e.target.closest("[data-copy]"),theme=e.target.closest("[data-theme]"),book=e.target.closest("[data-book]"),answer=e.target.closest("[data-answer]");if(save){saveVerse(save.dataset.save);return}if(copy){let v=analectsData.find(x=>x.id===+copy.dataset.copy);if(v)copyText(v);return}if(theme){$("themeFilter").value=theme.dataset.theme;visible=8;renderSearch();location.hash="search";return}if(book){$("bookFilter").value=book.dataset.book;visible=8;renderSearch();location.hash="search";return}if(answer){checkQuiz(+answer.dataset.answer);return}});
+["searchInput","themeFilter","bookFilter"].forEach(id=>$(id).addEventListener(id==="searchInput"?"input":"change",()=>{visible=8;renderSearch()}));
+$("resetBtn").onclick=()=>{$("searchInput").value="";$("themeFilter").value="";$("bookFilter").value="";bookmarkedOnly=false;visible=8;renderSearch()};
+$("bookmarkedOnly").onclick=()=>{bookmarkedOnly=!bookmarkedOnly;visible=8;renderSearch()};
+$("moreResults").onclick=()=>{visible+=8;renderSearch()};
+$("completeToday").onclick=()=>{let k=koreanDate();let already=days.has(k);days.add(k);putStored("days",[...days]);updateCounts();notify(already?"오늘은 이미 읽기 완료했습니다.":"오늘 읽기를 기록했습니다.")};
+$("saveMemo").onclick=()=>{putStored("memo",$("studyMemo").value);notify("메모가 저장됐습니다.")};
+$("studyMemo").addEventListener("input",()=>putStored("memo",$("studyMemo").value));
+$("randomBtn").onclick=()=>{let v=analectsData[Math.floor(Math.random()*analectsData.length)];showSelected(v,"무작위 구절");location.hash="history"};
+$("nextQuiz").onclick=newQuiz;$("resetQuiz").onclick=()=>{quizScore={total:0,correct:0};putStored("quizscore",quizScore);renderQuizScore();notify("기록을 초기화했습니다.")};
+$("themeToggle").onclick=()=>{let t=document.documentElement.dataset.theme==="dark"?"light":"dark";document.documentElement.dataset.theme=t;$("themeToggle").textContent=t==="dark"?"☼":"☾";putStored("theme",t)};
+$("fontUp").onclick=()=>scaleFont(.05);$("fontDown").onclick=()=>scaleFont(-.05);
+}
+function scaleFont(n){let v=+(getComputedStyle(document.documentElement).getPropertyValue("--scale")||1);v=Math.min(1.2,Math.max(.9,+(v+n).toFixed(2)));document.documentElement.style.setProperty("--scale",v);putStored("scale",v)}
+init();
+</script>
+</body></html>
